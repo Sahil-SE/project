@@ -1,0 +1,2 @@
+class AssessorResponse < ApplicationRecord
+end
