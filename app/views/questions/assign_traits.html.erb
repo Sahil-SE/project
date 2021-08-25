@@ -1,0 +1,15 @@
+  <h1>Edit Form </h1>
+
+<%= form_with model: @question_trait, url: add_trait_path(@question) do |form| %>
+    <div>
+        <%= f.collection_select :tile, Question.order(:name) %>
+    </div>
+    
+    <div>
+        <%= f.collection_select :name, Trait.order(:name)%>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<%end%>

@@ -1,0 +1,23 @@
+<h1>New Casestudy Form </h1>
+
+<%= form_with model: @casestudy do |form| %>
+    
+    <div>
+        <%= form.label :tile %><br>
+        <%= form.text_field :tile %>
+    </div>
+
+    <div>
+        <%= form.label :duration %><br>
+        <%= form.number_field :duration %>
+    </div>
+
+    <div>
+        <%= form.label :scale %><br>
+        <%= form.number_field :scale %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<%end%>

@@ -1,0 +1,27 @@
+<h1>Pages</h1>
+
+<% if can? :create, Page %>
+    <%= link_to "Create Pages", new_page_path %>
+<% end %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+  </tr>
+
+  <% @pages.each  do |p| %>
+  <tr>
+      <td><%= p.id%></td>
+      <td><%= p.tile %>
+      <td>
+        
+      </td>
+      <td>
+      <% if can? :update, p %>
+        <%= link_to "Edit", casestudy_pages_path %>
+      <% end %>
+      </td>
+  </tr>
+  <% end %>
+</table>

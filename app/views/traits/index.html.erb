@@ -1,0 +1,25 @@
+<h1>Traits</h1>
+
+<% if can? :create, Casestudy %>
+    <%= link_to "Create", new_traits_path %>
+<% end %>
+
+<table>
+<br>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+  </tr>
+
+  <% @traits.each  do |c| %>
+  <tr>
+      <td><%= c.id%></td>
+      <td><%= c.name %>
+      <td>
+      <% if can? :update, c %>
+        <%= link_to "Edit", edit_trait_path(c) %>
+      <% end %>
+      </td>
+  </tr>
+  <% end %>
+</table>

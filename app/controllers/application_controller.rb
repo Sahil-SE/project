@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 			user_dashboard_path
 		elsif user.roles.find_by(name: "assesor")
 			assesor_dashboard_path
-		elsif user.roles.find_by(name: "Content Creator")
+		elsif user.roles.find_by(name: "creator")
 			creator_dasboard_path	
 		else
 			test_dashboard_path

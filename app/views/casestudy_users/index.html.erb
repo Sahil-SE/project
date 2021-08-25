@@ -1,0 +1,28 @@
+<h1>Case Studies</h1>
+
+
+<table>
+<br>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Duration</th>
+    <th>Scale</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @casestudies.each  do |c| %>
+  <tr>
+      <td><%= c.id%></td>
+      <td><%= c.tile %>
+      <td><%= c.duration %></td>
+      <td><%= c.scale %></td>
+      <td>
+      <% if can? :assign, c %>
+        <%= link_to "Assign Users", assign_casestudies_to_users_path(c) %>
+      <% end %>
+      </td>
+  </tr>
+  <% end %>
+</table>

@@ -1,0 +1,21 @@
+<h1>Edit Form </h1>
+
+  <%= form_with model:([ @casestudy, @questions]), url: question_path do |form| %>
+
+    <div>
+        <%= form.label :tile %><br>
+        <%= form.text_field :tile %>
+    </div>
+    
+    <div>
+        <%= form.label :body %><br>
+        <%= form.text_field :body %>
+    </div>
+
+
+    <div>
+        <%= form.submit %>
+    </div>
+
+    
+<%end%>

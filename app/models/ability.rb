@@ -5,18 +5,29 @@ class Ability
 
   def initialize(user)
 
+    user ||= User.new # Guest user
+    
+    
     return unless user.present?
-    if user.roles.exists?(name: "Content Creator")
+    if user.roles.exists?(name: "creator")
       can :creatordash, :dashboard
       can :user_permissions, :dashboard
+      can :index, :home
+
       can :manage, CasestudyUser
       can :manage, Casestudy
+      can :manage, Page
+      can :manage, Question
+      
 
-    elsif user.roles.exists?(name: "assessor")
+    elsif user.roles.exists?(name: "assesor")
       can :assessordash, :dashboard
+      can :index, :home
+      can :show, Casestudy, :user_id => user.id
 
     elsif user.roles.exists?(name: "student")
       can :userdash, :dashboard
+      can :index, :home
       can :show, CasestudyUser, :user_id => user.id
       can :show, Casestudy, :user_id => user.id
 

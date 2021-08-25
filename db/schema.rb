@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_081808) do
+ActiveRecord::Schema.define(version: 2021_08_23_091832) do
 
   create_table "assessor_responses", force: :cascade do |t|
     t.integer "question_trait_id", null: false
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 2021_08_11_081808) do
     t.integer "scale"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "contentcreator_id", null: false
+    t.string "tile"
+    t.index ["contentcreator_id"], name: "index_casestudies_on_contentcreator_id"
   end
 
   create_table "casestudy_users", force: :cascade do |t|
@@ -53,6 +56,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_081808) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tile"
     t.index ["casestudy_id"], name: "index_pages_on_casestudy_id"
   end
 
@@ -70,6 +74,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_081808) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tile"
     t.index ["casestudy_id"], name: "index_questions_on_casestudy_id"
   end
 
@@ -123,6 +128,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_081808) do
   add_foreign_key "assessor_responses", "question_traits"
   add_foreign_key "assessor_responses", "users"
   add_foreign_key "assessor_responses", "users", column: "assessor_id"
+  add_foreign_key "casestudies", "users", column: "contentcreator_id"
   add_foreign_key "casestudy_users", "casestudies"
   add_foreign_key "casestudy_users", "users"
   add_foreign_key "casestudy_users", "users", column: "assessor_id"

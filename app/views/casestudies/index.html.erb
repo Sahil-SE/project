@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<h1>Case Studies</h1>
 
-</body>
-</html>
+<% if can? :create, Casestudy %>
+    <%= link_to "Create", new_casestudy_path %>
+<% end %>
+
+<table>
+<br>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Duration</th>
+    <th>Scale</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @casestudies.each  do |c| %>
+  <tr>
+      <td><%= c.id%></td>
+      <td><%= c.tile %>
+      <td><%= c.duration %></td>
+      <td><%= c.scale %></td>
+      <td>
+      <% if can? :update, c %>
+        <%= link_to "Edit", edit_casestudy_path(c) %>
+      <% end %>
+      </td>
+      <td>
+      <% if can? :update, c %>
+        <%= link_to "Pages", casestudy_pages_path(c) %>
+      <% end %> 
+      </td>
+      <td>
+      <% if can? :update, c %>
+        <%= link_to "Questions", casestudy_questions_path(c) %>
+      <% end %> 
+      </td>
+  </tr>
+  <% end %>
+</table>

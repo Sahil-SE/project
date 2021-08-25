@@ -10,9 +10,15 @@ class User < ApplicationRecord
  has_many :assessors
  has_many :casestudies, through: :casestudy_users
  has_many :user_responses
+ has_many :casestudies, class_name: "Casestudy", foreign_key: "contentcreator_id"
 
  validates :name, presence:true, length: {minimum: 3}
  validates :email, presence:true, uniqueness: true, format: Devise.email_regexp
  
+after_create :assign_role
 
+def assign_role
+   self.roles.create(name: "student")
+   
+end
 end
