@@ -26,4 +26,3 @@ class RoleUsersController < ApplicationController
     end
 
 end
-end

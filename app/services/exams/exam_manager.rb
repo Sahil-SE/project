@@ -1,5 +1,6 @@
 module ExamManager
-	def initialize(@casestudy_user)
+	def initialize(casestudy_user)
+		@casestudy_user = casestudy_user
 		if @casestudy_user.status == 'Not_started'
 			@casestudy.questions.each do |q|
 				ans = q.user_responses.new(response: "Not answered yet...",
