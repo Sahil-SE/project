@@ -1,5 +1,5 @@
 class CasestudiesController < ApplicationController
-load_and_authorize_resource
+load_and_authorize_resource 
 
     def new
         @casestudy = Casestudy.new
@@ -23,7 +23,9 @@ load_and_authorize_resource
     end
     
     def index
-        @casestudies = Casestudy.all
+       
+        #@casestudies = Casestudy.all
+        # raise @casestudies.inspect
     end
 
     def edit

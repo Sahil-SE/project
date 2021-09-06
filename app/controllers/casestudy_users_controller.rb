@@ -2,24 +2,28 @@ class CasestudyUsersController < ApplicationController
     def index
         @casestudies = Casestudy.all        
     end
+    
+    def new
+       @casestudies = Casestudy.all        
+       @casestudy_user = CasestudyUser.new
+       @user = Role.find_by(name: "student").users
+       @assesor = Role.find_by(name: "assesor").users
+    end
 
     def create
-        @casestudies = Casestudy.all
-        @casestudy_user = CasestudyUser.new
-        @users = User.where(role: "student")
-        @casestudy = Casestudy.find(params[:casestudy_id])
-        @assesor = User.where("assesor")
-        @casestudy_user = CasestudyUser.create(casestudy_user_params)
-        if @casestudy_user.save?
-            redirect_to assign_casestudies_to_users_path
+        # @casestudy = Casestudy.find(:casestudy_id)
+        #raise params.inspect
+        @casestudy_user = CasestudyUser.create(casestudy_id: params[:casestudy_id], user_id: params[:casestudy_user][:user_id], assessor_id: params[:casestudy_user][:assessor_id])
+        if @casestudy_user.save
+            redirect_to list_of_casestudies_for_assigning_path
         else
             raise @casestudy_user.errors.inspect
-            redirect_to add_traits_path
+            redirect_to creator_dasboard_path
         end
     end
 
-    private
-    def casestudy_user_params
-        params.require(:user).permit(:id)        
-    end
+        # private
+        # def casestudy_user_params
+        #     params.require(:casestudy_user).permit(:user_id, :assessor_id, :casestudy_id)        
+        # end
 end

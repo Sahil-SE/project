@@ -1,0 +1,14 @@
+<h1>Assign Casestudy User Form </h1>
+
+<%= form_for CasestudyUser.new,  url: create_casestudies_to_users_path do |form| %>
+
+    <% options = options_from_collection_for_select(@user, 'id', 'email') %>
+    <%= form.select :user_id, options, {} %>
+
+    <% options = options_from_collection_for_select(@assesor, 'id', 'email') %>
+    <%= form.select :assessor_id, options, {} %>
+
+    <div>
+        <%= form.submit :"Assign" %>
+
+<% end %>

@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
     def show
         @question = Question.find(params[:id])
         @traits = @question.traits
+        # raise @traits.inspect
     end
     
     def index
@@ -48,6 +49,13 @@ class QuestionsController < ApplicationController
         end
     end
     
+    def destroy
+        @question = Question.find(params[:id])
+        
+        if @question.destroy
+            redirect_to casestudy_questions_path
+        end
+    end
     # def assign_traits
     #     #raise params.inspect
     #     @question = Question.find(params[:id])

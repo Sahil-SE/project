@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 		if user.roles.find_by(name: "student")
 			user_dashboard_path
 		elsif user.roles.find_by(name: "assesor")
-			assesor_dashboard_path
+			assessor_dashboard_path
 		elsif user.roles.find_by(name: "creator")
 			creator_dasboard_path	
 		else

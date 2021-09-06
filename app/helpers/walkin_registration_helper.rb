@@ -1,0 +1,2 @@
+module WalkinRegistrationHelper
+end

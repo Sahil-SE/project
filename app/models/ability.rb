@@ -28,9 +28,12 @@ class Ability
     elsif user.roles.exists?(name: "student")
       can :userdash, :dashboard
       can :index, :home
-      can :show, CasestudyUser, :user_id => user.id
-      can :show, Casestudy, :user_id => user.id
+     # can :show, CasestudyUser, :user_id => user.id
+      can :read, Casestudy, users: {id: user.id}
 
+    elsif
+      can :manage, WalkinRegistrationController
+      #can :userdash, :dashboard
     end
     # Define abilities for the passed in user here. For example:
     #

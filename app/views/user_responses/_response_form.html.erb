@@ -1,0 +1,5 @@
+<%= form_with model: response, url: save_response_path(@casestudy_user, response) do |form| %>
+ <%= form.label :Answer %>
+ <%= form.text_field :response %>
+    <%= form.submit :"Save Answer" %>
+<%  end %>

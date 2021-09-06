@@ -6,8 +6,8 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get assesordash" do
-    get dashboard_assesordash_url
+  test "should get assessordash" do
+    get dashboard_assessordash_url
     assert_response :success
   end
 

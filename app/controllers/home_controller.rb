@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def creatordash
   end
 
-  def assesordash
+  def assessordash
   end
 
   def userdash

@@ -1,14 +1,25 @@
 Rails.application.routes.draw do
   get 'dashboard_creatordash', to: 'dashboard#creatordash', as: 'creator_dasboard'
-  get 'dashboard_assesordash', to: 'dashboard#assesordash', as: 'assesor_dashboard'
-  get 'dashboard_userdash', to: 'dashboard#userdash', as: 'user_dashboard'
+  get 'dashboard_assessordash', to: 'dashboard#assessordash', as: 'assessor_dashboard'
+ 
   get 'dashboard_testdash', to: 'dashboard#testdash', as: 'test_dashboard'
+
+  get 'dashboard_userdash', to: 'dashboard#userdash', as: 'user_dashboard'
+  
+  get 'casestudy_users/:casestudy_user_id', to: 'user_responses#index', as: 'instructions'
+  get 'casestudy_users/:casestudy_user_id/exam', to: 'user_responses#exam', as: 'start_exam'
+  patch 'casestudy_users/:casestudy_user_id/user_response/:id', to: 'user_responses#update', as: 'save_response'
+  get 'casestudy_users/:casestudy_user_id/submit', to: 'user_responses#submit', as: 'final_submit'
+
   devise_for :users
+
   
-  get 'dashboard_assesordash/manage_casestudy_users', to: 'casestudy_users#index', as: 'list_of_casestudies'
-  get 'dashboard_assesordash/assign_casestudy_users/:casestudy_id', to: 'casestudy_users#create', as: 'assign_casestudies_to_users'
-  post 'dashboard_assesordash/assign_casestudy_users/:casestudy_id', to: 'casestudy_users#list', as: 'list_casestudies_to_users'
-  
+  get 'dashboard_creatordash/manage_casestudy_users', to: 'casestudy_users#index', as: 'list_of_casestudies_for_assigning'
+  get 'dashboard_creatordash/assign_casestudy_users/:casestudy_id', to: 'casestudy_users#new', as: 'assign_casestudies_to_users'
+  post 'dashboard_creatorordash/assign_casestudy_users/:casestudy_id', to: 'casestudy_users#create', as: 'create_casestudies_to_users'
+
+
+
   get 'casestudies', to: 'casestudies#index', as: 'casestudies'
   get 'casestudies/new', to: 'casestudies#new', as: 'new_casestudy'
   post 'casestudies', to: 'casestudies#create'
@@ -24,11 +35,11 @@ Rails.application.routes.draw do
   get 'casestudies/:casestudy_id/questions/:id', to: 'questions#show', as: 'question'
   get 'casestudies/:casestudy_id/questions/:id/edit', to: 'questions#edit', as: 'edit_question'
   patch 'casestudies/:casestudy_id/questions/:id', to: 'questions#update'
+  delete 'casestudies/:casestudy_id/questions/delete/:id', to: 'questions#destroy', as: 'delete_question'
 
   get 'casestudies/:casestudy_id/questions/:question_id/add_traits', to: 'question_traits#new', as: 'add_traits'
   post 'casestudies/:casestudy_id/questions/:question_id/', to: 'question_traits#create', as: 'assign_traits'
-
-
+  delete 'casestudies/:casestudy_id/questions/:question_id/:id', to: 'question_traits#destroy', as: 'delete_question_traits'
 
 
   get 'casestudies/:casestudy_id/pages', to: 'pages#index', as: 'casestudy_pages'
@@ -37,6 +48,7 @@ Rails.application.routes.draw do
   get 'casestudies/:casestudy_id/pages/:id', to: 'pages#show', as: 'page'
   get 'casestudies/:casestudy_id/pages/:id/edit', to: 'pages#edit', as: 'edit_page'
   patch 'casestudies/:casestudy_id/pages/:id', to: 'pages#update'
+  delete 'casestudies/:casestudy_id/pages/delete/:id', to:'pages#destroy', as: 'delete_page'
 
   get 'traits', to: 'traits#index', as: 'traits'
   get 'traits/new', to: 'traits#new', as: 'new_traits'
@@ -48,6 +60,8 @@ Rails.application.routes.draw do
   # get 'questions/:id/new', to: 'questions#new', as: 'new_question'
 
   get 'home/index'
+  get 'home/index/walkin/:casestudy_id/:assessor_id', to: 'walkin_registration#new', as: 'walkin_registration'
+  post 'home/index/walkin/:casestudy_id/:assessor_id', to: 'walkin_registration#create', as: 'create_walkin_registration'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   root to: "home#index"

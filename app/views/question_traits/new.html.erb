@@ -2,7 +2,7 @@
 
 <%= form_for QuestionTrait.new, url: assign_traits_path(params[:casestudy_id], @question) do |form| %>
     <% options = options_from_collection_for_select(@traits_all, 'id', 'name') %>
-    <%= form.select :casestudy_id, options %>
+    <%= form.select :trait_id, options %>
 
 
     <div>

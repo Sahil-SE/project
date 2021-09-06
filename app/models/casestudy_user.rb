@@ -8,6 +8,15 @@ class CasestudyUser < ApplicationRecord
     enum status: [:Not_started, :in_progress, :submitted_but_not_assessed, :submitted_and_assessed]
     validate :check_user_and_assessor
 
+    after_initialize :init
+
+  def init
+    self.status = :Not_started
+    self.time_elapsed = 0
+   # self.started_time = 
+   # self.completed_time = 
+  end
+
   def check_user_and_assessor
     errors.add(:assessor_id, "can't be the same as user_id") if user_id == assessor_id
   end

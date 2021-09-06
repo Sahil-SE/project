@@ -39,6 +39,12 @@ class PagesController < ApplicationController
         end
     end
 
+    def destroy
+        @page=Page.find(params[:id])
+        if @page.destroy
+            redirect_to casestudy_pages_path
+        end
+    end
     private
         def page_params
             params.require(:page).permit(:tile, :body)

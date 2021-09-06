@@ -1,6 +1,7 @@
 <h1><%= @question.tile %> </h1>
 
 <%= link_to "Add Traits" , add_traits_path(params[:casestudy_id], @question) %>
+<br>
 
 <table>
   <tr>
@@ -12,5 +13,10 @@
   <tr>
      <td>  <%= t.id %> </td>
      <td>   <%= t.name %></td>
+     <td> 
+     <% @qt = QuestionTrait.where(question_id: @question.id, trait_id: t.id).first %>
+     <%= link_to "Remove Trait", delete_question_traits_path(params[:casestudy_id], @question, @qt.id), method: :delete %> 
+     
+     </td>
   </td>
    <% end %>

@@ -1,0 +1,9 @@
+<% if @casestudy_user.status == 'in_progress' %>
+
+<%= link_to 'Resume Exam', start_exam_path(@casestudy_user) %>
+
+<% else %>
+
+<%= link_to 'Start the Exam', start_exam_path(@casestudy_user) %>
+
+<% end %>

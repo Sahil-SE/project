@@ -17,8 +17,8 @@ class User < ApplicationRecord
  
 after_create :assign_role
 
-def assign_role
-   self.roles.create(name: "student")
-   
-end
+   def assign_role
+      role_users.create(user_id: self.id, role_id: Role.find_by(name: "student").id)
+      
+   end
 end
