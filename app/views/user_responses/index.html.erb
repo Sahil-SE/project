@@ -1,9 +1,31 @@
-<% if @casestudy_user.status == 'in_progress' %>
+<table>
+<br>
+  <tr>
+    <th>ID</th>
+    <th>User_id</th>
+    <th>Assessor_id</th>
+    <th> Status </th>
+    <th></th>
+  </tr>
 
-<%= link_to 'Resume Exam', start_exam_path(@casestudy_user) %>
-
-<% else %>
-
-<%= link_to 'Start the Exam', start_exam_path(@casestudy_user) %>
-
-<% end %>
+  <% @casestudy_users.each  do |cu| %>
+  <tr>
+      <td><%= cu.id%></td>
+      <td><%= cu.user_id %></td>
+      <td><%= cu.assessor_id %></td>
+      <td><%= cu.status %></td>
+      <td>
+         <%= link_to 'Resume Exam', start_exam_path(cu.id) %>
+       </td>
+      <td>
+     
+      </td>
+      <td>
+     
+      </td>
+      
+      <td>
+      
+  </tr>
+  <% end %>
+</table>

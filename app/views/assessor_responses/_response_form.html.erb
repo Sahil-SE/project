@@ -1,0 +1,5 @@
+<%= form_with  model: response, url: save_assessor_response_path(@casestudy_user, response) do |f| %>
+    <%= f.label response.question_trait.trait.name %>
+    <%= f.number_field :rating, min: 0.0, max: @casestudy_user.casestudy.scale %>
+    <%= f.submit :"Save Marks" %>    
+<%  end %>

@@ -2,8 +2,8 @@ class CasestudyUser < ApplicationRecord
     belongs_to :casestudy
     belongs_to :user
     belongs_to :assessor, class_name: "User", foreign_key: "user_id"
-    has_many :user_responses
-    has_many :assessor_responses
+    has_many :user_responses, dependent: :destroy
+    has_many :assessor_responses, dependent: :destroy
     
     enum status: [:Not_started, :in_progress, :submitted_but_not_assessed, :submitted_and_assessed]
     validate :check_user_and_assessor
@@ -11,8 +11,8 @@ class CasestudyUser < ApplicationRecord
     after_initialize :init
 
   def init
-    self.status = :Not_started
-    self.time_elapsed = 0
+    #self.status = :Not_started
+    #self.time_elapsed = 0
    # self.started_time = 
    # self.completed_time = 
   end

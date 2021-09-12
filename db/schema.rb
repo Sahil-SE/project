@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_184807) do
+ActiveRecord::Schema.define(version: 2021_09_08_083856) do
 
   create_table "assessor_responses", force: :cascade do |t|
     t.integer "question_trait_id", null: false
@@ -41,12 +41,12 @@ ActiveRecord::Schema.define(version: 2021_08_26_184807) do
     t.integer "casestudy_id", null: false
     t.integer "user_id", null: false
     t.integer "assessor_id", null: false
-    t.string "status"
     t.integer "time_elapsed"
     t.datetime "started_time"
     t.datetime "completed_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status"
     t.index ["assessor_id"], name: "index_casestudy_users_on_assessor_id"
     t.index ["casestudy_id"], name: "index_casestudy_users_on_casestudy_id"
     t.index ["user_id"], name: "index_casestudy_users_on_user_id"

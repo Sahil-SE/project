@@ -13,16 +13,22 @@ module ExamHelper
 	end
 
 	def start_exam
-		@casestudy_user.status = "in_progress"
+		@casestudy_user.status = 1
 		@casestudy_user.started_time = Time.now
 		@casestudy_user.save
 	end
 
 	def final_submit
 		@casestudy_user = CasestudyUser.find(params[:casestudy_user_id])
-		@casestudy_user.status = 'submitted_but_not_assessed'
+		@casestudy_user.status = 2
 		@casestudy_user.completed_time = Time.now
 		@casestudy_user.save
-		sign_out current_user
+	    # if @casestudy_user.save
+		# 	raise @casestudy_user.inspect
+		# else
+		# 	raise @params.inspect
+		# end
+		
+		# sign_out current_user
 	end
 end

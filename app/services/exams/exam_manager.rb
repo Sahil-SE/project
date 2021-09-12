@@ -1,7 +1,7 @@
 module ExamManager
 	def initialize(casestudy_user)
 		@casestudy_user = casestudy_user
-		if @casestudy_user.status == 'Not_started'
+		if @casestudy_user.status == 0
 			@casestudy.questions.each do |q|
 				ans = q.user_responses.new(response: "Not answered yet...",
 											casestudy_user_id: @casestudy_user.id,
@@ -20,7 +20,7 @@ module ExamManager
 
 	def final_submit
 		@casestudy_user = CasestudyUser.find(params[:casestudy_user_id])
-		@casestudy_user.status = 'submitted_but_not_assessed'
+		@casestudy_user.status = 2
 		@casestudy_user.completed_time = Time.now
 		@casestudy_user.save
 		sign_out current_user

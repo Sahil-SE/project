@@ -23,13 +23,18 @@ class Ability
     elsif user.roles.exists?(name: "assesor")
       can :assessordash, :dashboard
       can :index, :home
-      can :show, Casestudy, :user_id => user.id
+      can :read, Casestudy, :user_id => user.id
+      can :manage, CasestudyUser #, assessor: user
+      can :manage, AssessorResponse, casestudy_user: { assessor: user }
+
 
     elsif user.roles.exists?(name: "student")
       can :userdash, :dashboard
       can :index, :home
      # can :show, CasestudyUser, :user_id => user.id
       can :read, Casestudy, users: {id: user.id}
+      can [:read, :update], CasestudyUser, user: user
+      can :manage, UserResponse, user: user
 
     elsif
       can :manage, WalkinRegistrationController

@@ -13,7 +13,7 @@ class CasestudyUsersController < ApplicationController
     def create
         # @casestudy = Casestudy.find(:casestudy_id)
         #raise params.inspect
-        @casestudy_user = CasestudyUser.create(casestudy_id: params[:casestudy_id], user_id: params[:casestudy_user][:user_id], assessor_id: params[:casestudy_user][:assessor_id])
+        @casestudy_user = CasestudyUser.create(casestudy_id: params[:casestudy_id], user_id: params[:casestudy_user][:user_id], assessor_id: params[:casestudy_user][:assessor_id], time_elapsed: 0, status: 0)
         if @casestudy_user.save
             redirect_to list_of_casestudies_for_assigning_path
         else

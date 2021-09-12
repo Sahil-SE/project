@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root to: "home#index"
+
   get 'dashboard_creatordash', to: 'dashboard#creatordash', as: 'creator_dasboard'
   get 'dashboard_assessordash', to: 'dashboard#assessordash', as: 'assessor_dashboard'
  
@@ -6,10 +9,16 @@ Rails.application.routes.draw do
 
   get 'dashboard_userdash', to: 'dashboard#userdash', as: 'user_dashboard'
   
-  get 'casestudy_users/:casestudy_user_id', to: 'user_responses#index', as: 'instructions'
+  get 'casestudy_users', to: 'user_responses#index', as: 'instructions'
   get 'casestudy_users/:casestudy_user_id/exam', to: 'user_responses#exam', as: 'start_exam'
   patch 'casestudy_users/:casestudy_user_id/user_response/:id', to: 'user_responses#update', as: 'save_response'
+  post '/casestudy_users/:casestudy_user_id/update_time', to: 'user_responses#update_time', as: 'update_time'
   get 'casestudy_users/:casestudy_user_id/submit', to: 'user_responses#submit', as: 'final_submit'
+
+  get 'casestudy_users/assessor/evaluations', to: 'assessor_responses#index', as: 'evaluations'
+  get 'casestudy_users/eval/:casestudy_user_id', to: 'assessor_responses#eval', as: 'start_evaluation'
+  patch 'casestudy_users/eval/:casestudy_user_id/assessor_response/:id', to: 'assessor_responses#update', as: 'save_assessor_response'
+  get 'casestudy_users/eval/:casestudy_user_id/submit', to: 'assessor_responses#submit', as: 'assessor_final_submit'
 
   devise_for :users
 
@@ -63,7 +72,5 @@ Rails.application.routes.draw do
   get 'home/index/walkin/:casestudy_id/:assessor_id', to: 'walkin_registration#new', as: 'walkin_registration'
   post 'home/index/walkin/:casestudy_id/:assessor_id', to: 'walkin_registration#create', as: 'create_walkin_registration'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  
-  root to: "home#index"
 
 end

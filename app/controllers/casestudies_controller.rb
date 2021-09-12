@@ -24,8 +24,8 @@ load_and_authorize_resource
     
     def index
        
-        #@casestudies = Casestudy.all
-        # raise @casestudies.inspect
+        @casestudies = Casestudy.all
+     #  redirect_to start_exam_path(@casestudy_users.id)
     end
 
     def edit

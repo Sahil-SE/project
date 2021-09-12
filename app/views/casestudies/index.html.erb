@@ -36,11 +36,7 @@
         <%= link_to "Questions", casestudy_questions_path(c) %>
       <% end %> 
       </td>
-      <% if current_user.roles.exists?(name:"student") %>
-       <% casestudyuser_id = CasestudyUser.find_by(user_id: current_user.id, casestudy_id: c.id).id %>
-        <%= link_to "Start Test", start_exam_path(casestudyuser_id) %>
-       <% end %> 
-      <td>
+
       
   </tr>
   <% end %>

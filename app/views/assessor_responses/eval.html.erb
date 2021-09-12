@@ -1,0 +1,20 @@
+Name of Casestudy : <%= @casestudy.tile %>
+Duration of Casestudy <%= @casestudy.duration %>
+Scale : <%= @casestudy.scale %>
+
+<% @casestudy_user.casestudy.questions.each do |question|%>
+			<h6>Question</h6>
+			<p> <%= question.body %> </p>
+			<h6>Answer</h6>
+			<p> <%= @casestudy_user.user_responses.find_by(question: question).response %></p>
+
+			<% question.question_traits.each do |question_trait|%>
+				<% assessor_response = AssessorResponse.find_by(casestudy_user_id: @casestudy_user.id, question_trait_id: question_trait.id, assessor_id: current_user.id) %>
+				<%= render "assessor_responses/response_form", response: assessor_response %>
+			<% end %>
+		</div>
+	</div>
+<%end%>
+<% if @casestudy_user.status == "submitted_but_not_assessed" %>
+	<%= link_to 'Submit Final', assessor_final_submit_path(@casestudy_user) %> 
+<% end %>

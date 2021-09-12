@@ -1,0 +1,35 @@
+<h1>Case Studies To Assess</h1>
+
+<table>
+<br>
+  <tr>
+    <th>ID</th>
+    <th>User_id</th>
+    <th>Assessor_id</th>
+    <th> Status </th>
+    <th></th>
+  </tr>
+
+  <% @casestudy_users.each  do |c| %>
+  <tr>
+      <td><%= c.id%></td>
+      <td><%= c.user_id %></td>
+      <td><%= c.assessor_id %></td>
+      <td><%= c.status %></td>
+      <td>
+        <%if c.status == "submitted_but_not_assessed" %>
+          <%= link_to "Evaluate", start_evaluation_path(c.id) %>
+        <% end %>
+      </td>
+      <td>
+     
+      </td>
+      <td>
+     
+      </td>
+      
+      <td>
+      
+  </tr>
+  <% end %>
+</table>
