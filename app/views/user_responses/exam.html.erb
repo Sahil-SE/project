@@ -4,7 +4,6 @@ Scale : <%= @casestudy.scale %>
 
 <div id="timer"></div>
 
-<%= @time_remaining %>
 
 <% @casestudy.pages.each do |p| %>
 
@@ -27,7 +26,10 @@ Scale : <%= @casestudy.scale %>
 
     duration = <%= @duration  %> * 60
     console.log(duration)
-    timeRemaining = duration - <%= @casestudy_user.time_elapsed %> //new Date("<%= @time_remaining %>");
+
+    countSec = 0;
+    timeRemaining = duration - <%= @casestudy_user.time_elapsed %>
+
     console.log(timeRemaining);
     cd_timer  = setInterval(updateTimer, 1000)
     update_db = setInterval(updateDB, 5000)
@@ -56,7 +58,9 @@ Scale : <%= @casestudy.scale %>
 
         timeRemaining = timeRemaining - 1;
         console.log(timeRemaining)
-        timer.innerHTML = timeRemaining;
+        timeRemainingMinutes = Math.floor(timeRemaining/60 );
+        timeRemainingSeconds = Math.floor(timeRemaining % 60);
+        timer.innerHTML = + timeRemainingMinutes + " Minutes : " + timeRemainingSeconds + " seconds";
 
         if(timeRemaining <= 0 ){
             clearInterval(cd_timer);
@@ -71,21 +75,4 @@ Scale : <%= @casestudy.scale %>
 
         }
     }
-    
-    
-//     function getTimeRemaining(endtime){
-//         const total = Date.parse(endtime) - Date.parse(new Date());
-//         const seconds = Math.floor( (total/1000) % 60 );
-//         const minutes = Math.floor( (total/1000/60) % 60 );
-//         const hours = Math.floor( (total/(1000*60*60)) % 24 );
-//         const days = Math.floor( total/(1000*60*60*24) );
-
-//         return {
-//             total,
-//             days,
-//             hours,
-//             minutes,
-//             seconds
-//         };
-//     }
 </script>

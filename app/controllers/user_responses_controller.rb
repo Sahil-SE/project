@@ -16,7 +16,7 @@ class UserResponsesController < ApplicationController
 			init_exam()
             start_exam()
 			@time_elapsed = @casestudy_user.time_elapsed
-			@time_remaining = (Time.now + (@casestudy_user.casestudy.duration - @time_elapsed)).to_s
+			@time_remaining = (Time.now + (@casestudy_user.casestudy.duration*60 - @time_elapsed)).to_s
         elsif @casestudy_user.status == 'in_progress'
 			@time_elapsed = @casestudy_user.time_elapsed
 			@time_remaining = (Time.now + (@casestudy_user.casestudy.duration - @time_elapsed)).to_s
