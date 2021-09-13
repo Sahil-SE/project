@@ -1,1 +1,75 @@
 <h1> <%= @casestudy.id %> <%= @casestudy.tile %> </h1>
+<br>
+
+<h3> List of Pages </h3>
+
+<br>
+
+<h5> <%= link_to "Create Pages", new_page_path(@casestudy.id) %> </h5>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Body</th>
+  </tr>
+  <% @casestudy.pages.each  do |p| %>
+  <tr>
+      <td><%= p.id%></td>
+      <td><%= p.tile %></td>
+      <td><%= p.body %></td>
+
+      <td>
+      <% if can? :update, p %>
+        <%= link_to "Edit", casestudy_pages_path %>
+      <% end %>
+      </td>
+
+      <td>
+      <% if can? :update, p %>
+        <%= link_to "Delete Page", delete_page_path(params[:casestudy_id], p.id), method: :delete %>
+      <% end %>
+      </td>
+
+  </tr>
+  <% end %>
+</table>
+<br>
+
+<h3> List of Questions </h3>
+<br>
+
+<h5> <%= link_to "Create Questions", new_question_path(@casestudy.id) %> </h5>
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Body</th>
+  </tr>
+  <% @casestudy.questions.each  do |q| %>
+  <tr>
+      <td><%= q.id%></td>
+      <td><%= q.tile %></td>
+      <td><%= q.body %></td>
+
+      <td>
+      <% if can? :update, q %>
+        <%= q.id; link_to "Edit Questions", edit_question_path(@casestudy.id, q.id) %>
+      <% end %>
+      </td>
+
+      <td>
+      <% if can? :update, q %>
+        <%= link_to "Delete Page", delete_question_path(@casestudy.id, q.id), method: :delete %>
+      <% end %>
+      </td>
+
+  </tr>
+  <% end %>
+</table>
+
+<br>
+
+<h3> <%= link_to " List of Casetudies", casestudies_path %> </h3>

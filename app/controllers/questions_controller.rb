@@ -28,6 +28,7 @@ class QuestionsController < ApplicationController
     end
 
     def edit
+        #raise params.inspect
         @casestudy = Casestudy.find(params[:casestudy_id])
         
         @questions = Question.find(params[:id])

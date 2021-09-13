@@ -7,22 +7,32 @@
         <%= form.text_field :tile %>
     </div>
 
+    <br>
+
     <div>
         <%= form.label :duration %><br>
         <%= form.number_field :duration %>
     </div>
+
+    <br>
 
     <div>
         <%= form.label :scale %><br>
         <%= form.number_field :scale %>
     </div>
 
+    <br>
+
     <div>
         <%= form.label :passkey %><br>
         <%= form.text_field :passkey %>
     </div>
 
+    <br>
+
     <div>
         <%= form.submit %>
     </div>
 <%end%>
+<br>
+<h3> <%= link_to " List of Casetudies", casestudies_path %> </h3>

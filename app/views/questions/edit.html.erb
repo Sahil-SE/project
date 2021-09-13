@@ -1,4 +1,4 @@
-<h1>Edit Form </h1>
+<h1>Edit Question Form </h1>
 
   <%= form_with model:([ @casestudy, @questions]), url: question_path do |form| %>
 
@@ -19,3 +19,7 @@
 
     
 <%end%>
+
+<br>
+
+<%= link_to "Return to Casetudy", casestudy_path(params[:casestudy_id]) %>

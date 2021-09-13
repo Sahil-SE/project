@@ -8,7 +8,8 @@ class QuestionTraitsController < ApplicationController
 
     def create
         @question = Question.find(params[:question_id])
-        @question_trait = @question.question_traits.create(question_trait_params) #(trait_id: params[:trait][:id])
+        @question_trait = @question.question_traits.new(question_trait_params) #(trait_id: params[:trait][:id])
+        #raise @question_trait.errors.inspect
         if @question_trait.save
            # raise @question_trait.inspect
             redirect_to question_path(params[:casestudy_id], @question)
