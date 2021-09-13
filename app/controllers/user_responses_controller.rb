@@ -11,15 +11,15 @@ class UserResponsesController < ApplicationController
 		#raise params.inspect
 		@casestudy_user = CasestudyUser.find(params[:casestudy_user_id])
 		@casestudy = @casestudy_user.casestudy
-        @time = @casestudy.duration
+        @duration = @casestudy.duration
         if @casestudy_user.status == 'Not_started'
 			init_exam()
             start_exam()
 			@time_elapsed = @casestudy_user.time_elapsed
-			@deadline = (Time.now + (@casestudy_user.casestudy.duration - @time_elapsed))
+			@time_remaining = (Time.now + (@casestudy_user.casestudy.duration - @time_elapsed)).to_s
         elsif @casestudy_user.status == 'in_progress'
 			@time_elapsed = @casestudy_user.time_elapsed
-			@deadline = (Time.now + (@casestudy_user.casestudy.duration - @time_elapsed))
+			@time_remaining = (Time.now + (@casestudy_user.casestudy.duration - @time_elapsed)).to_s
 			# redirect to same page
 		elsif @casestudy_user.status == 'submitted_but_not_assessed'
 			redirect_to root_path, notice: "You have already submitted Exam"
@@ -39,9 +39,12 @@ class UserResponsesController < ApplicationController
 	end
 
 	def update_time
+		puts "******************"
 		@casestudy_user = CasestudyUser.find(params[:casestudy_user_id])
 		duration = @casestudy_user.casestudy.duration
-		@casestudy_user.update(time_elapsed: duration - (params[:time_elapsed].to_i / 1000))
+		@time_elapsed = @casestudy_user.time_elapsed + 5
+		@casestudy_user.update(time_elapsed: @time_elapsed)
+		puts @casestudy_user.time_elapsed
 	end
 
 	def submit

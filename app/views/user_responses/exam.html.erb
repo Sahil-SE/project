@@ -2,9 +2,9 @@ Name of Casestudy : <%= @casestudy.tile %>
 Duration of Casestudy <%= @casestudy.duration %>
 Scale : <%= @casestudy.scale %>
 
-<div id="clockdiv"></div>
+<div id="timer"></div>
 
-<%= @deadline %>
+<%= @time_remaining %>
 
 <% @casestudy.pages.each do |p| %>
 
@@ -23,49 +23,107 @@ Scale : <%= @casestudy.scale %>
 <%= link_to 'Submit answers', final_submit_path(@casestudy_user) %>
 
 <script>
-    const deadline = new Date("<%= @deadline %>");
-    console.log(deadline)
-    function getTimeRemaining(endtime){
-        const total = Date.parse(endtime) - Date.parse(new Date());
-        const seconds = Math.floor( (total/1000) % 60 );
-        const minutes = Math.floor( (total/1000/60) % 60 );
-        const hours = Math.floor( (total/(1000*60*60)) % 24 );
-        const days = Math.floor( total/(1000*60*60*24) );
+    const current_path = window.location.pathname
 
-        return {
-            total,
-            days,
-            hours,
-            minutes,
-            seconds
-        };
-    }
-
-
-    function initializeClock(id, endtime){
-        const clock = document.getElementById(id);
-        const timeinterval = setInterval(() => {
-            const t = getTimeRemaining(endtime);
-            clock.innerHTML = t.days + ' days :' + t.hours + ' hours :' t.minutes + ' minutes :' + t.seconds + ' seconds'
-            if (t.seconds % 30 === 0){
+    duration = <%= @duration  %> * 60
+    console.log(duration)
+    timeRemaining = duration - <%= @casestudy_user.time_elapsed %> //new Date("<%= @time_remaining %>");
+    console.log(timeRemaining);
+    cd_timer  = setInterval(updateTimer, 1000)
+    update_db = setInterval(updateDB, 5000)
+    
+    function updateDB() {
+            if(current_path != location.pathname) {
+                clearInterval(cd_timer);
+                clearInterval(update_db);
+                return;
+            }
                 const request = new XMLHttpRequest();
+                console.log(request)
                 request.open("post", "<%= update_time_path(@casestudy_user) %>");
                 const token = document.querySelector('meta[name="csrf-token"]').content;
                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 request.setRequestHeader("X-CSRF-Token", token);
-                request.send(`time_elapsed=${t.total}`);
-            }
-            if (t.total <= 0){
-                clearInterval(timeinterval);
+                request.send(`time_elapsed=${5}`);
+            
+    //         if (t.total <= 0){
+    //             clearInterval(timeinterval);
+
+    //             const request = new XMLHttpRequest();
+    //             request.open("post", "<%= final_submit_path %>");
+    //             const token = document.querySelector('meta[name="csrf-token"]').content;
+    //             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //             request.setRequestHeader("X-CSRF-Token", token);
+    //             request.send();
+    }
+
+    function updateTimer(){
+         if(current_path != location.pathname) {
+                clearInterval(cd_timer);
+                clearInterval(update_db);
+                return;
+        }
+
+        timeRemaining = timeRemaining - 1;
+        console.log(timeRemaining)
+        timer.innerHTML = timeRemaining;
+
+        if(timeRemaining <= 0 ){
+            clearInterval(cd_timer);
+            clearInterval(update_db);
 
                 const request = new XMLHttpRequest();
-                request.open("post", "<%= final_submit_path %>");
+                request.open("get", "<%= final_submit_path %>");
                 const token = document.querySelector('meta[name="csrf-token"]').content;
                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 request.setRequestHeader("X-CSRF-Token", token);
                 request.send();
-            }
-        }, 1000);
+
+        }
     }
-initializeClock('clockdiv', deadline);
+    
+    
+//     function getTimeRemaining(endtime){
+//         const total = Date.parse(endtime) - Date.parse(new Date());
+//         const seconds = Math.floor( (total/1000) % 60 );
+//         const minutes = Math.floor( (total/1000/60) % 60 );
+//         const hours = Math.floor( (total/(1000*60*60)) % 24 );
+//         const days = Math.floor( total/(1000*60*60*24) );
+
+//         return {
+//             total,
+//             days,
+//             hours,
+//             minutes,
+//             seconds
+//         };
+//     }
+
+
+//     function initializeClock(id, endtime){
+//         const clock = document.getElementById(id);
+//         const timeinterval = setInterval(() => {
+//             const t = getTimeRemaining(endtime);
+//             clock.innerHTML = t.days + ' days :' + t.hours + ' hours :' t.minutes + ' minutes :' + t.seconds + ' seconds';
+//             if (t.seconds % 30 === 0){
+//                 const request = new XMLHttpRequest();
+//                 request.open("post", "<%= update_time_path(@casestudy_user) %>");
+//                 const token = document.querySelector('meta[name="csrf-token"]').content;
+//                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//                 request.setRequestHeader("X-CSRF-Token", token);
+//                 request.send(`time_elapsed=${t.total}`);
+//             }
+//             if (t.total <= 0){
+//                 clearInterval(timeinterval);
+
+//                 const request = new XMLHttpRequest();
+//                 request.open("post", "<%= final_submit_path %>");
+//                 const token = document.querySelector('meta[name="csrf-token"]').content;
+//                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//                 request.setRequestHeader("X-CSRF-Token", token);
+//                 request.send();
+//             }
+//         }, 1000);
+//     }
+// initializeClock('timer', timeRemaining);
 </script>
